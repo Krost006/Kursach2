@@ -44,7 +44,7 @@ cl_base* cl_base::GetSub(const std::string& child_file) {
 }
 
 cl_base* cl_base::GetSubOnBranch(const std::string& successor) {
-  std::queue <cl_base*> queue;
+  std::queue < cl_base * > queue;
   queue.push(this);
   int counter = 0;
   cl_base* answer = nullptr;
@@ -154,7 +154,7 @@ bool cl_base::ChangeHead(cl_base* new_head) {
     return false;
   }
 
-  for (int i = 0; i < head->subordinate.size(); i++) {
+  for (int i = 0; i < head->subordinate.size(); ++i) {
     if (head->subordinate[i] == this) {
       head->subordinate.erase(head->subordinate.begin() + i);
       break;
@@ -163,7 +163,6 @@ bool cl_base::ChangeHead(cl_base* new_head) {
 
   head = new_head;
   new_head->subordinate.push_back(this);
-
   return true;
 }
 
@@ -174,7 +173,7 @@ bool cl_base::DeleteByName(const std::string& direct_child) {
   }
 
   for (int i = 0; i < subordinate.size(); i++) {
-    if (object == subordinate[i]) {
+    if (subordinate[i] == object) {
       delete object;
       subordinate.erase(subordinate.begin() + i);
       return true;
@@ -187,12 +186,11 @@ cl_base* cl_base::GetObjectByPath(std::string path) {
   char separator = '.';
 
   if (path[0] == '/') {
-    if (head != nullptr)
+    if (head != nullptr) {
       return head->GetObjectByPath(path);
-    else {
-      separator = '/';
-      path = path.substr(1);
     }
+    separator = '/';
+    path = path.substr(1);
   }
 
   if (path == "" || path == ".") {
