@@ -51,7 +51,7 @@ int cl_application::exec_app() {
   std::string command;
   std::string operator_path;
   cl_base* current_object = this;
-  while (1) {
+  while (true) {
     std::cin >> command;
     if (command == "END") {
       std::cout << "Current object hierarchy tree\n";
