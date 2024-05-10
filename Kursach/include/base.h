@@ -5,19 +5,21 @@
 
 class cl_base {
  private:
-  std::string name;
+  cl_base* root;
   cl_base* head;
   std::vector<cl_base*> subordinate;
+  std::string name;
   int status;
 
  public:
-  cl_base(cl_base* head, const std::string& name = "root");
+  cl_base(cl_base* root, cl_base* head, std::string&& name);
   ~cl_base();
 
   bool Rename(const std::string& new_name);
 
   std::string GetName();
   cl_base* GetHead();
+  cl_base* GetRoot();
   cl_base* GetSub(const std::string& sub_name);
 
   cl_base* GetSubOnBranch(const std::string& successor);

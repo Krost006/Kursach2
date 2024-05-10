@@ -1,11 +1,11 @@
 #include <iostream>
 #include <queue>
+#include <utility>
 
 #include "base.h"
 
-cl_base::cl_base(cl_base* head, const std::string& name) {
-  this->head = head;
-  this->name = name;
+cl_base::cl_base(cl_base* root, cl_base* head, std::string&& name)
+    : root(root), head(head), name(std::move(name)) {
   if (head != nullptr) {
     head->subordinate.push_back(this);
   }
@@ -33,6 +33,10 @@ std::string cl_base::GetName() {
 cl_base* cl_base::GetHead() {
   return head;
 };
+
+cl_base* cl_base::GetRoot() {
+  return root;
+}
 
 cl_base* cl_base::GetSub(const std::string& child_file) {
   for (auto child : subordinate) {

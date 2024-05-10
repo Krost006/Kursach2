@@ -1,10 +1,11 @@
 #include <iostream>
+#include <utility>
 
 #include "application.h"
 #include "support.h"
 
-cl_application::cl_application(cl_base* ptr, const std::string& name)
-    : cl_base(ptr, name) {}
+cl_application::cl_application(cl_base* ptr, std::string&& name)
+    : cl_base(this, ptr, std::move(name)) {}
 
 void cl_application::build_tree_objects() {
   std::string root;
@@ -25,19 +26,19 @@ void cl_application::build_tree_objects() {
     if (head_obj != nullptr && head_obj->GetSub(sub) == nullptr) {
       switch (class_number) {
         case 2:
-          last = new cl2(head_obj, sub);
+          last = new cl2(head_obj->GetRoot(), head_obj, std::move(sub));
           break;
         case 3:
-          last = new cl3(head_obj, sub);
+          last = new cl3(head_obj->GetRoot(), head_obj, std::move(sub));
           break;
         case 4:
-          last = new cl4(head_obj, sub);
+          last = new cl4(head_obj->GetRoot(), head_obj, std::move(sub));
           break;
         case 5:
-          last = new cl5(head_obj, sub);
+          last = new cl5(head_obj->GetRoot(), head_obj, std::move(sub));
           break;
         case 6:
-          last = new cl6(head_obj, sub);
+          last = new cl6(head_obj->GetRoot(), head_obj, std::move(sub));
           break;
         default:
           break;
