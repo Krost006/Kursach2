@@ -6,7 +6,6 @@
 cl_application::cl_application(cl_base* ptr = nullptr, const std::string& name = "root")
     : cl_base(ptr, name) {}
 
-
 void cl_application::build_tree_objects() {
   std::string root;
   std::cin >> root;
@@ -59,8 +58,9 @@ int cl_application::exec_app() {
       return 0;
     }
     std::cin >> operator_path;
+    auto tmp_object = current_object->GetObjectByPath(operator_path);
+
     if (command == "SET") {
-      auto tmp_object = current_object->GetObjectByPath(operator_path);
       if (tmp_object == nullptr) {
         std::cout << "The object was not found at the specified coordinate: " << operator_path << "\n";
       }
@@ -72,7 +72,6 @@ int cl_application::exec_app() {
 
     else if (command == "FIND") {
       std::cout << operator_path;
-      auto tmp_object = current_object->GetObjectByPath(operator_path);
       if (tmp_object == nullptr) {
         std::cout << "     Object is not found\n";
       }
@@ -82,7 +81,6 @@ int cl_application::exec_app() {
     }
 
     else if (command == "MOVE") {
-      auto tmp_object = current_object->GetObjectByPath(operator_path);
       if (tmp_object == nullptr) {
         std::cout << operator_path << "     Head object is not found\n";
       }
@@ -101,7 +99,6 @@ int cl_application::exec_app() {
     }
 
     else if (command == "DELETE") {
-      auto tmp_object = current_object->GetSub(operator_path);
       if (tmp_object != nullptr) {
         std::string absolute_path = "/" + tmp_object->GetName();
         auto tmp_head_object = tmp_object->GetHead();
