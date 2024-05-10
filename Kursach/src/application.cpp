@@ -23,7 +23,7 @@ void cl_application::build_tree_objects() {
     }
     std::cin >> sub >> class_number;
     cl_base* head_obj = last->GetObjectByPath(input_head_path);
-    if (head_obj->GetSub(sub) == nullptr && head_obj != nullptr) {
+    if (head_obj != nullptr && head_obj->GetSub(sub) == nullptr) {
       switch (class_number) {
         case 2:
           last = new cl2(head_obj, sub);
