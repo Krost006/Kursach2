@@ -19,8 +19,8 @@ class cl_base {
   cl_base* GetHead();
   cl_base* GetSub(const std::string& sub_name);
 
-  cl_base* GetSubOnBranch(const std::string& sub_name);
-  cl_base* GetSubOnTree(const std::string& sub_name);
+  cl_base* GetSubOnBranch(const std::string& successor);
+  cl_base* GetSubOnTree(const std::string& successor);
 
   void PrintTreeFromThis();
   void PrintTreeFromThisWithStatus();
@@ -28,7 +28,7 @@ class cl_base {
   void SetStatus(int new_status);
 
   bool ChangeHead(cl_base* new_head);
-  bool DeleteByName(const std::string& element);
+  bool DeleteByName(const std::string& direct_child);
 
   cl_base* GetObjectByPath(std::string path);
 };

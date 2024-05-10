@@ -43,8 +43,8 @@ cl_base* cl_base::GetSub(const std::string& child_file) {
   return nullptr;
 }
 
-cl_base* cl_base::GetSubOnBranch(const std::string& sub_name) {
-  std::queue < cl_base * > queue;
+cl_base* cl_base::GetSubOnBranch(const std::string& successor) {
+  std::queue <cl_base*> queue;
   queue.push(this);
   int counter = 0;
   cl_base* answer = nullptr;
@@ -52,7 +52,7 @@ cl_base* cl_base::GetSubOnBranch(const std::string& sub_name) {
     cl_base* current = queue.front();
     queue.pop();
     for (auto child : current->subordinate) {
-      if (child->GetName() == sub_name) {
+      if (child->GetName() == successor) {
         ++counter;
         answer = current;
       }
@@ -66,11 +66,11 @@ cl_base* cl_base::GetSubOnBranch(const std::string& sub_name) {
   return answer;
 }
 
-cl_base* cl_base::GetSubOnTree(const std::string& sub_name) {
+cl_base* cl_base::GetSubOnTree(const std::string& successor) {
   if (head != nullptr) {
-    return head->GetSubOnTree(sub_name);
+    return head->GetSubOnTree(successor);
   }
-  return GetSubOnBranch(sub_name);
+  return GetSubOnBranch(successor);
 }
 
 void cl_base::PrintTreeFromThis() {
@@ -167,8 +167,8 @@ bool cl_base::ChangeHead(cl_base* new_head) {
   return true;
 }
 
-bool cl_base::DeleteByName(const std::string& element_name) {
-  cl_base* object = GetSub(element_name);
+bool cl_base::DeleteByName(const std::string& direct_child) {
+  cl_base* object = GetSub(direct_child);
   if (object == nullptr) {
     return false;
   }
