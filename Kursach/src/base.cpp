@@ -71,18 +71,15 @@ cl_base* cl_base::GetSubOnBranch(const std::string& successor) {
 }
 
 cl_base* cl_base::GetSubOnTree(const std::string& successor) {
-  if (head != nullptr) {
-    return head->GetSubOnTree(successor);
-  }
-  return GetSubOnBranch(successor);
+  return root->GetSubOnBranch(successor);
 }
 
 void cl_base::PrintTreeFromThis() {
-  cl_base* root = head;
+  cl_base* parent = head;
   int level = 0;
-  while (root != nullptr) {
-    level++;
-    root = root->head;
+  while (parent != nullptr) {
+    ++level;
+    parent = parent->head;
   }
   std::string tab = "    ";
   for (int i = 0; i < level; ++i) {
@@ -95,11 +92,11 @@ void cl_base::PrintTreeFromThis() {
 }
 
 void cl_base::PrintTreeFromThisWithStatus() {
-  cl_base* root = head;
+  cl_base* parent = head;
   int level = 0;
-  while (root != nullptr) {
+  while (parent != nullptr) {
     ++level;
-    root = root->head;
+    parent = parent->head;
   }
   std::string tab = "    ";
   std::string separator = " ";
@@ -190,14 +187,14 @@ cl_base* cl_base::GetObjectByPath(std::string path) {
   char separator = '.';
 
   if (path[0] == '/') {
-    if (head != nullptr) {
-      return head->GetObjectByPath(path);
+    if (this != root) {
+      return root->GetObjectByPath(path);
     }
     separator = '/';
     path = path.substr(1);
   }
 
-  if (path == "" || path == ".") {
+  if (path.empty() || path == ".") {
     return this;
   }
 
@@ -205,7 +202,7 @@ cl_base* cl_base::GetObjectByPath(std::string path) {
     return GetSubOnBranch(path.substr(1));
   }
 
-  int index = path.find('/');
+  auto index = path.find('/');
   if (index == std::string::npos) {
     return GetSub(path);
   }
