@@ -3,7 +3,7 @@
 #include "application.h"
 #include "support.h"
 
-cl_application::cl_application(cl_base* ptr = nullptr, const std::string& name = "root")
+cl_application::cl_application(cl_base* ptr, const std::string& name)
     : cl_base(ptr, name) {}
 
 void cl_application::build_tree_objects() {
@@ -39,6 +39,8 @@ void cl_application::build_tree_objects() {
         case 6:
           last = new cl6(head_obj, sub);
           break;
+        default:
+          break;
       }
     }
   }
@@ -57,6 +59,7 @@ int cl_application::exec_app() {
       this->PrintTreeFromThis();
       return 0;
     }
+
     std::cin >> operator_path;
     auto tmp_object = current_object->GetObjectByPath(operator_path);
 

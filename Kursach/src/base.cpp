@@ -54,7 +54,7 @@ cl_base* cl_base::GetSubOnBranch(const std::string& successor) {
     for (auto child : current->subordinate) {
       if (child->GetName() == successor) {
         ++counter;
-        answer = current;
+        answer = child;
       }
       queue.push(child);
     }
@@ -94,12 +94,12 @@ void cl_base::PrintTreeFromThisWithStatus() {
   cl_base* root = head;
   int level = 0;
   while (root != nullptr) {
-    level++;
+    ++level;
     root = root->head;
   }
   std::string tab = "    ";
   std::string separator = " ";
-  for (int i = 0; i < level; i++) {
+  for (int i = 0; i < level; ++i) {
     std::cout << tab;
   }
   std::cout << name << separator;
@@ -129,7 +129,7 @@ void cl_base::SetStatus(int new_status) {
     return;
   }
 
-  if (status != 0 && new_status == 0) {
+  if (status != 0) {
     status = 0;
     for (auto child : subordinate) {
       child->SetStatus(new_status);
@@ -172,7 +172,7 @@ bool cl_base::DeleteByName(const std::string& direct_child) {
     return false;
   }
 
-  for (int i = 0; i < subordinate.size(); i++) {
+  for (int i = 0; i < subordinate.size(); ++i) {
     if (subordinate[i] == object) {
       delete object;
       subordinate.erase(subordinate.begin() + i);

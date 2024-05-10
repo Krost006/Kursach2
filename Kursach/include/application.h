@@ -6,7 +6,7 @@
 
 class cl_application :public cl_base {
  public:
-  cl_application(cl_base* ptr, const std::string& name);
+  explicit cl_application(cl_base* ptr, const std::string& name);
 
   void build_tree_objects();
 

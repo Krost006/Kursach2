@@ -9,6 +9,7 @@ class cl_base {
   cl_base* head;
   std::vector<cl_base*> subordinate;
   int status;
+
  public:
   cl_base(cl_base* head, const std::string& name = "root");
   ~cl_base();
